@@ -3,14 +3,51 @@ var date = dayjs();
 console.log(date);
 
 var currentDate = date.format("DD-MM-YYYY HH:mm:ss A");
-
-console.log(currentDate);
-
+// var countUp = setInterval(
+//   (function count() {
+//     currentDate++;
+//   },
+//   60000)
+// );
+// console.log(countUp);
 var displayDate = $("#currentDay");
-
 displayDate.text(currentDate);
 
 // dynamically create elements within the 'time-block' divs
+var hours = [
+  "8AM",
+  "9AM",
+  "10AM",
+  "11AM",
+  "12PM",
+  "1PM",
+  "2PM",
+  "3PM",
+  "4PM",
+  "5PM",
+  "6PM",
+  "7PM",
+];
+
+for (let i = 0; i < hours.length; i++) {
+  var contain = $(".container");
+  var timeBlock = $("<div>");
+  timeBlock.attr("block", hours[i]);
+  timeBlock.addClass("timeblock hour row");
+  timeBlock.text(hours[i]);
+  contain.append(timeBlock);
+}
+
+var scheduleBlock = $("<div>");
+scheduleBlock.addClass("schedule past");
+var hoursBlock = $(".timeblock");
+
+hoursBlock.append(scheduleBlock);
+
+var saveButton = $("<button>");
+saveButton.addClass("save saveBtn");
+saveButton.text("Save");
+hoursBlock.append(saveButton);
 
 // apply css/styling to them to seperate the blocks into three segments: time/user input for activitity/save button
 
