@@ -19,7 +19,14 @@ messageBox.addClass("row message");
 $(".container").append(messageBox);
 
 var hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-
+var hourDisplay = [
+  "08.00AM",
+  "09.00AM",
+  "10.00AM",
+  "11.00AM",
+  "12.00PM",
+  "01.00PM",
+];
 //create set of larger divs to contain the child elements of the planner
 
 //for loop to set the elements of the
@@ -31,12 +38,22 @@ for (let i = 0; i < hours.length; i++) {
   timeBlock.attr("hour-container", hours[i]);
   contain.append(timeBlock);
   //creates elements for the hour labels
-  var hourText = $("<p>");
+  var timeInput = $("<input>");
+  timeInput.attr("input", hours[i]);
+  timeInput.attr("id", i);
+  timeInput.addClass("time time-block");
+  timeInput.css("width", "95%");
+  timeBlock.html(timeInput);
+  var text = localStorage.getItem(i) || "";
+  timeInput.val(text);
+  //var text = timeInput.val();
+
+  var hourText = $("<h3>");
   hourText.attr("hour-text", hours[i]);
-  hourText.css("width", "10%");
+  hourText.css("width", "90%");
   hourText.addClass("header row hour");
   hourText.text(hours[i]);
-  timeBlock.prepend(hourText);
+  timeInput.wrap(hourText);
   //creates elements for the save button
   var saveButton = $("<button>");
   saveButton.addClass("save row saveBtn");
@@ -44,6 +61,10 @@ for (let i = 0; i < hours.length; i++) {
   saveButton.attr("button", hours[i]);
   saveButton.css("width", "10%");
   timeBlock.append(saveButton);
+
+  saveButton.click(function () {
+    localStorage.setItem(i, $("#" + i).val());
+  });
 
   // console.log(date.format("HH"));
   console.log(hours[i]);
@@ -53,15 +74,15 @@ for (let i = 0; i < hours.length; i++) {
   console.log(currentHour);
 
   if (hours[i] == currentHour) {
-    timeBlock.addClass("present");
+    timeInput.addClass("present");
   }
 
   if (hours[i] > currentHour) {
-    timeBlock.addClass("future");
+    timeInput.addClass("future");
   }
 
   if (hours[i] < currentHour) {
-    timeBlock.addClass("past");
+    timeInput.addClass("past");
   }
 }
 
