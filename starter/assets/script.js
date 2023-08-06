@@ -18,20 +18,8 @@ var messageBox = $("<span>");
 messageBox.addClass("row message");
 $(".container").append(messageBox);
 
-var hours = [
-  "8AM",
-  "9AM",
-  "10AM",
-  "11AM",
-  "12PM",
-  "1PM",
-  "2PM",
-  "3PM",
-  "4PM",
-  "5PM",
-  "6PM",
-  "7PM",
-];
+var hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+
 //create set of larger divs to contain the child elements of the planner
 
 //for loop to set the elements of the
@@ -39,30 +27,45 @@ for (let i = 0; i < hours.length; i++) {
   //sets elements for divs to contain other elements
   var contain = $(".container");
   var timeBlock = $("<div>");
-  timeBlock.addClass("time row time-block past");
+  timeBlock.addClass("time row time-block");
   timeBlock.attr("hour-container", hours[i]);
   contain.append(timeBlock);
-
+  //creates elements for the hour labels
   var hourText = $("<p>");
   hourText.attr("hour-text", hours[i]);
   hourText.css("width", "10%");
   hourText.addClass("header row hour");
   hourText.text(hours[i]);
   timeBlock.prepend(hourText);
-
+  //creates elements for the save button
   var saveButton = $("<button>");
   saveButton.addClass("save row saveBtn");
   saveButton.text("Save");
   saveButton.attr("button", hours[i]);
   saveButton.css("width", "10%");
   timeBlock.append(saveButton);
+
+  // console.log(date.format("HH"));
+  console.log(hours[i]);
+
+  var currentHour = date.format("HH");
+
+  console.log(currentHour);
+
+  if (hours[i] == currentHour) {
+    timeBlock.addClass("present");
+  }
+
+  if (hours[i] > currentHour) {
+    timeBlock.addClass("future");
+  }
+
+  if (hours[i] < currentHour) {
+    timeBlock.addClass("past");
+  }
 }
 
-// apply css/styling to them to seperate the blocks into three segments: time/user input for activitity/save button
-
 //create logic to make the colour change throughout the day
-
-//add todays date into the display of the header
 
 //apply day.js - use it to split time into hour chunks/apply functions so the user can select and use the time according to their needs
 
