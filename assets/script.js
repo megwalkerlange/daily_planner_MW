@@ -15,18 +15,11 @@ displayDate.text(currentDate);
 
 // dynamically create elements within the 'time-block' divs
 var messageBox = $("<span>");
-messageBox.addClass("row message");
+messageBox.addClass("row message hour");
 $(".container").append(messageBox);
 
 var hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-var hourDisplay = [
-  "08.00AM",
-  "09.00AM",
-  "10.00AM",
-  "11.00AM",
-  "12.00PM",
-  "01.00PM",
-];
+
 //create set of larger divs to contain the child elements of the planner
 
 //for loop to set the elements of the
@@ -56,7 +49,7 @@ for (let i = 0; i < hours.length; i++) {
   timeInput.wrap(hourText);
   //creates elements for the save button
   var saveButton = $("<button>");
-  saveButton.addClass("save row saveBtn");
+  saveButton.addClass("save row saveBtn saveBtn i:hover");
   saveButton.text("Save");
   saveButton.attr("button", hours[i]);
   saveButton.css("width", "10%");
@@ -64,9 +57,13 @@ for (let i = 0; i < hours.length; i++) {
 
   saveButton.click(function () {
     localStorage.setItem(i, $("#" + i).val());
+    setInterval((saveButton) => {
+      messageBox.text("Task Saved!");
+    }, 2000);
+    return;
   });
 
-  // console.log(date.format("HH"));
+  // console.og(date.format("HH"));
   console.log(hours[i]);
 
   var currentHour = date.format("HH");
